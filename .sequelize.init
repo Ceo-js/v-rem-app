@@ -1,0 +1,168 @@
+
+
+yarn add express mysql2 sequelize 
+yarn add -D sequelize-cli
+
+server.js [
+    app.use( express.urlencoded( { extended: false } ) );
+
+]
+
+terminal[
+    npx sequelize init
+
+]
+
+ren[
+    config/config.json
+        config/database.js
+]
+
+database.js[
+    module.exports = {
+        username: "root",
+        password: "password",
+        database: "crud_sequelize",
+        host: "127.0.0.1",
+        dialect: "mysql",
+    }
+]
+
+root[
+    database/
+    app/
+]
+
+move[
+    migrations/
+        database/migrations/
+    seeders/
+        databse/seeders/
+    models/
+        app/models/
+]
+
+root[
+    .sequelizerc
+]
+
+.sequelizerc[
+    const path = require('path');
+
+    module.exports = {
+        "config": path.resolve( "config", "database.js" ),
+        "models-path": path.resolve( "app", "models" ),
+        "seeders-path": path.resolve( "database", "seeders" ),
+        "migrations-path": path.resolve( "database", "migrations" ),
+    };
+]
+
+app/models/index.js[
+    const 
+        fs = require( "fs" ),
+        path = require( "path" ),
+        Sequelize = require( "sequelize" ),
+        config = require( " ../../config/database.js" ),
+        db = {},
+        sequelize = new Sequelize( config );
+    
+    fs.readdirSync( __dirname ).filter( file => (
+            file.indexOf( "." ) !== 0
+        ) && ( 
+            file !== path.basename( __filename )
+        ) && (
+            file.slice( -3 ) === ".js" )
+        ).forEach( file => {
+            const model = sequelize.import( path.join( __dirname, file )
+        );
+        db[ model.name ] = model;
+    } );
+    
+    Object.keys( db ).forEach( modelName => {
+        if( db[ modelName ].associate ) {
+            db[ modelName ].associate( db );
+        }
+    } );
+    
+    db.sequelize = sequelize;
+    db.Sequelize = Sequelize;
+    
+    module.exports = db;
+]
+
+terminal[
+    npx sequelize migration:create --name=create-users
+]
+
+testar[
+    npx sequelize db:migrate
+]
+
+Model de Usuários:
+================
+app/models/user.js[
+    module.exports = ( sequelize, DataTypes ) => {
+        const User = sequelize.define( "User", {
+            name: DataTypes.STRING,
+            email: DataTypes.STRING,
+            password: DataTypes.STRING,
+        } );
+    
+        return User;
+    }
+]
+
+root/index.js[
+    const { User } = require( "./app/models/index" );
+    
+    /* criacao de um usuário "abaixo da linha do body parser */
+    User.create( { name: "Nome", email: "email@email.com", password: "password" } );
+]
+
+
+
+CRUD de Usuários:
+==============
+rotas.js[
+    /* create */
+    app.post( "/users", ( req, res ) => {} );
+    
+    /* read */
+    app.get( "/users", ( req, res ) => {} );
+    app.get( "/users/:id", ( req, res ) => {} );
+    
+    /* update */
+    app.put( "/users/:id", ( req, res ) => {} );
+    
+    /* delete */
+    app.delete( "/users/:id", ( req, res ) => {} );
+]
+
+create[
+    app.post( "/register-new-user", async ( req, res ) => {
+        const user = await User.create( req.body );
+        res.json( user );
+    } );
+]
+
+read[
+    app.get( "/find-user/:id", ( req, res ) => {
+        res.json( `user: ${id} found` );
+    } );
+    
+    app.get( "/findall-users" , ( req, res ) => {
+        res.json( "display users list" );
+    } );
+]
+
+edit[
+    app.put( "/update-user/:id", ( req, res ) => {
+        res.json( "user updated" );
+    } );
+]
+
+delete user[
+    app.delete( "/delete-user/:id", ( req, res ) => {
+        res.json( "user deleted" );
+    } );
+]
