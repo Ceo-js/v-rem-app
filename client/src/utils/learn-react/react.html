@@ -1,0 +1,121 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        pre {
+            background: #f5f5f5;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            font-size: 1.1rem;
+
+        }
+        t1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #f27;
+        }
+        t3 {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #905;
+        }
+        t4 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #27f;
+        }
+        l* {}
+    </style>
+</head>
+<body>
+    <t1>Learn React</t1>
+    <ol>
+        <li> <t3>How to create and nest components</t3>
+            <br>
+            <l1> 
+                <t4>React components are JavaScript functions that return markup:</t4>
+                <pre>
+function MyButton() {
+    return (
+    &lt;button&gt;I'm a button&lt;/button&gt;
+    );
+}
+                </pre>
+                <t4>nest it into another component:</t4>
+                <pre>
+export default function MyApp() {
+    return (
+        &lt;div&gt;
+            &lt;h1&gt;Welcome to my app&lt;/h1&gt;
+            &lt;MyButton /&gt;
+        &lt;/div&gt;
+    );
+}
+                </pre>
+                <t4>React component names must always start with a capital letter, while HTML tags must be lowercase.</t4>
+                <pre>
+function MyButton() {
+    return(
+        &lt;button&gt;
+            I'm a button
+        &lt;/button&gt;
+    );
+}
+    
+export default function MyApp() {
+    return(
+        &lt;div&gt;
+            &lt;h1&gt;Welcome to my app&lt;/h1&gt;
+            &lt;MyButton /&gt;
+        &lt;/div&gt;
+    );
+}
+                </pre>
+            </l1>
+        </li>
+
+        <li> <t3>How to add markup and styles</t3> <br>
+            <t4>
+                JSX is stricter than HTML. You have to close tags like &lt;br /&gt;. Your component also can’t return multiple JSX tags. You have to wrap them into a shared parent, like a &lt;div&gt;...&lt;/div&gt; or an empty &lt;&gt;...&lt;/&gt; wrapper:
+            </t4>
+                <pre>
+function AboutPage() {
+    return( &lt;&gt;
+        &lt;h1&gt;About&lt;/h1&gt;
+        &lt;p&gt;Hello there.&lt;br /&gt;How do you do?&lt;/p&gt;
+    &lt;/&gt; );
+}
+                </pre>    
+        </li>
+
+        <li> <t3>How to display data</t3> <br>
+            <t4>
+                JSX lets you put markup into JavaScript. Curly braces let you “escape back” into JavaScript so that you can embed some variable from your code and display it to the user. For example, this will display user.name:
+            </t4>
+            <pre>
+return( &lt;&gt;
+    &lt;h1&gt;
+        {user.name}
+    &lt;/h1&gt;
+);
+            </pre>
+        </li>
+
+        <li> <t3>How to render conditions and lists</t3> <br>
+        </li>
+
+        <li> <t3>How to respond to events and update the screen</t3> <br>
+        </li>
+
+        <li> <t3>How to share data between components</t3> <br>
+        </li>
+    </ol>
+    
+</body>
+</html>
