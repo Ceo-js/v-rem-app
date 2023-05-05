@@ -5,7 +5,8 @@ import react from "@vitejs/plugin-react";
 import ceo from "./src/utils/ceo";
 
 export default defineConfig( {
-	base: "/",
+	// base: "/",
+	base: "/v-rem-app/",
 	plugins: [ react() ],
 	server: {
 		port: ceo.gate,

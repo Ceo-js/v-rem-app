@@ -1,0 +1,25 @@
+
+
+git add dist -f && push && git subtree push --prefix dist github gh-pages;
+
+For a custom domain, change
+in vite.config.js
+base: "/"
+and in package.json
+"homepage": "your-custom-domain",
+
+
+/* ==[ deploy 2 ]============================*/
+add: base: "/<repo>/", to vite.config.js
+npm install gh-pages --save-dev
+
+add to package.json{
+    "homepage": "https://<username>.github.io/<repo>/",
+    ...
+    "scripts": {
+    ...
+    "build": "vite build",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d dist",
+    ...
+}
