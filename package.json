@@ -1,0 +1,7 @@
+
+
+{
+    "scripts": {
+        "deploy": "git add client/dist -f && git add . && git commit -m 'new build' && git push && git subtree push --prefix client/dist github gh-pages"
+    }
+}
